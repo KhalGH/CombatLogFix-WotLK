@@ -50,8 +50,10 @@ end
 -- When the cast is sent, we expect some sort of combat log event within the next 2
 local playerSpells = setmetatable({}, {
 	__index = function(tbl, name)
-		local cost = select(4, GetSpellInfo(name))
-		rawset(tbl, name, not not (cost and cost > 0))
+		-- local cost = select(4, GetSpellInfo(name)) -- fixed by Khal
+		local _, _, _, cost, _, powerType = GetSpellInfo(name)
+		-- rawset(tbl, name, not not (cost and cost > 0)) -- fixed by Khal
+		rawset(tbl, name, not not ((cost and cost > 0) or (powerType and powerType == 5))) -- added fallback for Rune-based spells (powerType == 5), which they always return a cost of 0
 		return rawget(tbl, name)
 	end
 })
@@ -78,7 +80,8 @@ local function checkTimeout(self, elapsed)
 	-- Try and narrow it down
 	if( CombatLogFixDB.report ) then
 		if( not throttleBreak or throttleBreak < GetTime() ) then
-			LogFixer:Print(string.format("%d filtered/%d events found. Cleared combat log, as it broke. Please report this!", CombatLogGetNumEntries(), CombatLogGetNumEntries(true)))
+			-- LogFixer:Print(string.format("%d filtered/%d events found. Cleared combat log, as it broke. Please report this!", CombatLogGetNumEntries(), CombatLogGetNumEntries(true))) -- changed by Khal
+			LogFixer:Print("Combat Log broken, entries cleared.") -- Simplified combat log breakage message for clarity
 			throttleBreak = GetTime() + 60
 		end
 	end
@@ -140,7 +143,3 @@ SlashCmdList["LOGFIXER"] = function(msg)
 		LogFixer:Print(string.format("%s is now |cffff2020disabled|r", optionText[msg]))
 	end
 end
-
-
-
-
