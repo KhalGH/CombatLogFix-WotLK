@@ -129,7 +129,7 @@ SlashCmdList["LOGFIXER"] = function(msg)
 		DEFAULT_CHAT_FRAME:AddMessage("/logfix zone - Toggles clearing on zone type change")
 		DEFAULT_CHAT_FRAME:AddMessage("/logfix auto - Toggles clearing combat log when it breaks")
 		DEFAULT_CHAT_FRAME:AddMessage("/logfix wait - Toggles not clearing until you drop combat")
-		DEFAULT_CHAT_FRAME:AddMessage("/logfix report - Toggles reporting how many messages were found when it broke")
+		DEFAULT_CHAT_FRAME:AddMessage("/logfix report - Toggles reporting when the combat log breaks and is fixed")
 		DEFAULT_CHAT_FRAME:AddMessage("/logfix status - List of set options")
 		return
 	end
@@ -143,3 +143,4 @@ SlashCmdList["LOGFIXER"] = function(msg)
 		LogFixer:Print(string.format("%s is now |cffff2020disabled|r", optionText[msg]))
 	end
 end
+
