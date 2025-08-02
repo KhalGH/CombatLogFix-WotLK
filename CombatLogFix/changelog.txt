@@ -1,3 +1,9 @@
+commit 6e794a4d9c099b625352d9437974d187e2354aae
+Author: Khal <https://github.com/KhalGH>
+Date:   Sat Aug 2 00:48:00 2025 -0500
+
+    Add fallback to prevent cost check exclusion of Rune-based spells
+
 commit 56a4b14edcb9632c4b7902ad07736f485f702a81
 Author: Shadowed <shadowed.wow@gmail.com>
 Date:   Wed Feb 17 16:34:43 2010 -0800
